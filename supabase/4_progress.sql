@@ -18,7 +18,8 @@
   p.display_name,
   p.creature,
   sum(c.points_given) as points,
-  count(c.task_id) as tasks_done
+  count(c.task_id) as tasks_done,
+  p.role
  from public.profiles p
  left join public.completion c on c.user_id= p.id where p.id= auth.uid()
  group by p.id;

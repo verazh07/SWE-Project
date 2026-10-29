@@ -36,14 +36,14 @@ export async function logout(){
 export async function getProgress() {
   const { data, error } = await supabase
     .from("user_progress")
-    .select("display_name, points")
+    .select("display_name, points, role")
     .single();
 
   if (error) {
     console.error(error);
     return null;
   }
-  return { name: data.display_name, points: data.points ?? 0 };
+  return { name: data.display_name, points: data.points ?? 0, role: data.role };
 }
 
 // Update user's display name in profiles table when changed

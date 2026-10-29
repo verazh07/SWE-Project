@@ -11,6 +11,7 @@ import * as sample from "./data/sampleData.js";
 export default function App() {
   const [user, setUser] = useState(null); // null = not logged in
   const [name, setName] = useState(""); // User's display name from Supabase.
+  const [role, setRole] = useState(""); // "student", "professor", or "ta"
   const [page, setPage] = useState("dashboard");
   const [points, setPoints] = useState(0); // Real points from Supabase. Default to 0. Loads after login.
   const [assignments, setAssignments] = useState(sample.assignments);
@@ -61,6 +62,7 @@ export default function App() {
       if (!progress) return; // couldn't load (check the browser console)
       setName(progress.name);
       setPoints(progress.points);
+      setRole(progress.role);
       setAchievements(await getAchievements());
     }
 
@@ -104,7 +106,7 @@ if (!user) {
 
   return (
     <div className="app">
-      <Sidebar page={page} onNavigate={setPage} unreadCount={unreadCount} username={name || user.email} onLogout={logout} />
+      <Sidebar page={page} onNavigate={setPage} unreadCount={unreadCount} username={name || user.email} role={role} onLogout={logout} />
 
       <main className="main">
         {page === "dashboard" && (
